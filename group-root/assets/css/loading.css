@@ -1,0 +1,290 @@
+/* Overlay wrapper */
+.loader-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 26px;
+  animation: loaderPanelIn 520ms ease-out both;
+}
+
+.loader-message {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 13.5px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: lowercase;
+  color: #5a5a64;
+}
+
+.loader-ellipsis {
+  display: inline-block;
+  letter-spacing: 0.22em;
+  animation: loaderEllipsis 1.4s ease-in-out infinite;
+}
+
+@keyframes loaderPanelIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes loaderEllipsis {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.loader-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.94);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  opacity: 1;
+  visibility: visible;
+  transition:
+    opacity 420ms ease-in-out,
+    visibility 420ms ease-in-out;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+.loader-overlay.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.loader-overlay.is-hidden .ss-loader-box {
+  transform: scale(0.92);
+  opacity: 0;
+}
+
+.loader-inline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Rounded tile */
+.ss-loader-box {
+  position: relative;
+  width: 96px;
+  height: 96px;
+  background-color: #b10f2e;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 10px 28px rgba(177, 15, 46, 0.22);
+  transform: scale(1);
+  opacity: 1;
+  transition:
+    transform 420ms ease-in-out,
+    opacity 360ms ease-in-out;
+  animation: tileSettle 480ms ease-out both;
+}
+
+@keyframes tileSettle {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Base book */
+.ss-book {
+  position: absolute;
+  bottom: 14px;
+  transform-origin: bottom right;
+  border-radius: 1.5px;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  will-change: transform, opacity;
+}
+
+/*
+  Faster cycle. Few keyframes + per-step ease-in / ease-out
+  so CSS interpolates fluidly instead of stepping through many frames.
+*/
+.ss-blue {
+  left: 16px;
+  width: 15px;
+  height: 66px;
+  background-color: #fff;
+  animation: blueBookCycle 1.2s infinite;
+}
+
+.ss-brown-1,
+.ss-brown-2,
+.ss-brown-3 {
+  width: 6px;
+  background-color: #411a0e;
+}
+
+.ss-brown-1 {
+  right: 26px;
+  height: 62px;
+  animation: brownDomino1 1.2s infinite;
+}
+
+.ss-brown-2 {
+  right: 19px;
+  height: 62px;
+  animation: brownDomino2 1.2s infinite;
+}
+
+.ss-brown-3 {
+  right: 12px;
+  height: 55px;
+  animation: brownDomino3 1.2s infinite;
+}
+
+@keyframes blueBookCycle {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg) scaleX(1) scaleY(1);
+    opacity: 1;
+    animation-timing-function: ease-in;
+  }
+  38% {
+    transform: translate3d(7px, 2px, 0) rotate(90deg) scaleX(1) scaleY(1);
+    opacity: 1;
+    animation-timing-function: ease-in-out;
+  }
+  48% {
+    transform: translate3d(7px, 2px, 0) rotate(90deg) scaleX(1) scaleY(1);
+    opacity: 1;
+    animation-timing-function: ease-in;
+  }
+  62% {
+    transform: translate3d(7px, 2px, 0) rotate(90deg) scaleX(0) scaleY(1);
+    opacity: 0;
+    animation-timing-function: linear;
+  }
+  63% {
+    transform: translate3d(0, 0, 0) rotate(0deg) scaleX(1) scaleY(0.05);
+    opacity: 0;
+    animation-timing-function: ease-out;
+  }
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg) scaleX(1) scaleY(1);
+    opacity: 1;
+  }
+}
+
+@keyframes brownDomino1 {
+  0%,
+  22% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+    opacity: 1;
+    animation-timing-function: ease-in;
+  }
+  48% {
+    transform: translate3d(48px, 4px, 0) rotate(92deg);
+    opacity: 1;
+    animation-timing-function: ease-in;
+  }
+  58% {
+    transform: translate3d(68px, 4px, 0) rotate(100deg);
+    opacity: 0;
+    animation-timing-function: linear;
+  }
+  59%,
+  78% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+    opacity: 0;
+    animation-timing-function: ease-out;
+  }
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+@keyframes brownDomino2 {
+  0%,
+  26% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+    opacity: 1;
+    animation-timing-function: ease-in;
+  }
+  52% {
+    transform: translate3d(50px, 4px, 0) rotate(92deg);
+    opacity: 1;
+    animation-timing-function: ease-in;
+  }
+  62% {
+    transform: translate3d(70px, 4px, 0) rotate(100deg);
+    opacity: 0;
+    animation-timing-function: linear;
+  }
+  63%,
+  80% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+    opacity: 0;
+    animation-timing-function: ease-out;
+  }
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+@keyframes brownDomino3 {
+  0%,
+  30% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+    opacity: 1;
+    animation-timing-function: ease-in;
+  }
+  56% {
+    transform: translate3d(52px, 4px, 0) rotate(92deg);
+    opacity: 1;
+    animation-timing-function: ease-in;
+  }
+  66% {
+    transform: translate3d(72px, 4px, 0) rotate(100deg);
+    opacity: 0;
+    animation-timing-function: linear;
+  }
+  67%,
+  82% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+    opacity: 0;
+    animation-timing-function: ease-out;
+  }
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loader-overlay,
+  .loader-panel,
+  .loader-ellipsis,
+  .ss-loader-box,
+  .ss-book {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .loader-overlay.is-hidden {
+    opacity: 0;
+    visibility: hidden;
+  }
+}

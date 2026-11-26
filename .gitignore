@@ -1,0 +1,17 @@
+# Environment & secrets
+.env
+.env.*
+!.env.example
+
+# Local MySQL data files (use schema.sql instead)
+users_db/
+
+# Course / office artifacts
+~$*
+*.docx
+
+# OS & editors
+Thumbs.db
+.DS_Store
+.idea/
+.vscode/

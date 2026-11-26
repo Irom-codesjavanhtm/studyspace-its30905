@@ -1,0 +1,200 @@
+/* Overlay wrapper */
+.loader-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    transition: opacity 0.35s ease, visibility 0.35s ease;
+}
+
+.loader-overlay.is-hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.loader-inline {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Orange Rounded Container */
+.ss-loader-box {
+    position: relative;
+    width: 96px;
+    height: 96px;
+    background-color: #f42828;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(255, 99, 51, 0.25);
+}
+
+/* Base Book Styles */
+.ss-book {
+    position: absolute;
+    bottom: 14px;
+    transform-origin: bottom right;
+    border-radius: 1px;
+    will-change: transform, opacity;
+}
+
+/* Main Blue Book */
+.ss-blue {
+    left: 16px;
+    width: 15px;
+    height: 66px;
+    background-color: #fff;
+    animation: blueBookCycle 2.4s cubic-bezier(0.4, 0.0, 0.2, 1) infinite;
+}
+
+/* Domino Brown Books */
+.ss-brown-1,
+.ss-brown-2,
+.ss-brown-3 {
+    width: 6px;
+    background-color: #411a0e;
+}
+
+.ss-brown-1 {
+    right: 26px;
+    height: 62px;
+    animation: brownDomino1 2.4s cubic-bezier(0.4, 0.0, 0.2, 1) infinite;
+}
+
+.ss-brown-2 {
+    right: 19px;
+    height: 62px;
+    animation: brownDomino2 2.4s cubic-bezier(0.4, 0.0, 0.2, 1) infinite;
+}
+
+.ss-brown-3 {
+    right: 12px;
+    height: 55px;
+    animation: brownDomino3 2.4s cubic-bezier(0.4, 0.0, 0.2, 1) infinite;
+}
+
+/* KEYFRAMES: Exact storyboard sequence */
+
+/* 1. Blue Book: Tilts, hits brown books, flattens, shrinks away, grows back */
+@keyframes blueBookCycle {
+    0%, 8% {
+        transform: translateX(0) rotate(0deg) scaleY(0.97);
+        opacity: 1;
+    }
+    /* Primary Frame 2 & 3: Tipping forward toward brown books */
+    22% {
+        transform: translateX(4px) rotate(22deg) scaleY(0.97);
+    }
+    /* Loopback Frame 1: Impact with brown stack */
+    34% {
+        transform: translateX(6px) rotate(45deg) scaleY(0.97);
+    }
+    /* Loopback Frame 2 & 3: Falls completely flat */
+    50%, 60% {
+        transform: translateX(6px) rotate(90deg) scaleY(0.97);
+        opacity: 1;
+    }
+    /* Loopback Frame 4: Flattens into thin line */
+    68% {
+        transform: translateX(6px) rotate(90deg) scaleX(0.15);
+        opacity: 1;
+    }
+    /* Loopback Frame 5: Disappears */
+    74%, 80% {
+        transform: translateX(6px) rotate(90deg) scaleX(0);
+        opacity: 0;
+    }
+    /* Loopback Frame 6: Small vertical sliver appears on left */
+    84% {
+        transform: translateX(0) rotate(0deg) scaleY(0.18);
+        opacity: 1;
+    }
+    /* Loopback Frame 7: Grows back to full height with 100ms ease feel */
+    96%, 100% {
+        transform: translateX(0) rotate(0deg) scaleY(0.97);
+        opacity: 1;
+    }
+}
+
+/* 2. Brown Books: Chain reaction topple + slide out of orange window */
+@keyframes brownDomino1 {
+    0%, 26% {
+        transform: translateX(0) rotate(0deg);
+        opacity: 1;
+    }
+    34% {
+        transform: translateX(0) rotate(14deg);
+    }
+    52% {
+        transform: translateX(45px) rotate(90deg);
+        opacity: 1;
+    }
+    58%, 85% {
+        transform: translateX(65px) rotate(90deg);
+        opacity: 0;
+    }
+    86% {
+        transform: translateX(0) rotate(0deg);
+        opacity: 0;
+    }
+    96%, 100% {
+        transform: translateX(0) rotate(0deg);
+        opacity: 1;
+    }
+}
+
+@keyframes brownDomino2 {
+    0%, 29% {
+        transform: translateX(0) rotate(0deg);
+        opacity: 1;
+    }
+    37% {
+        transform: translateX(0) rotate(16deg);
+    }
+    54% {
+        transform: translateX(45px) rotate(90deg);
+        opacity: 1;
+    }
+    60%, 85% {
+        transform: translateX(65px) rotate(90deg);
+        opacity: 0;
+    }
+    88% {
+        transform: translateX(0) rotate(0deg);
+        opacity: 0;
+    }
+    98%, 100% {
+        transform: translateX(0) rotate(0deg);
+        opacity: 1;
+    }
+}
+
+@keyframes brownDomino3 {
+    0%, 32% {
+        transform: translateX(0) rotate(0deg);
+        opacity: 1;
+    }
+    40% {
+        transform: translateX(0) rotate(18deg);
+    }
+    56% {
+        transform: translateX(45px) rotate(90deg);
+        opacity: 1;
+    }
+    62%, 85% {
+        transform: translateX(65px) rotate(90deg);
+        opacity: 0;
+    }
+    90% {
+        transform: translateX(0) rotate(0deg);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0) rotate(0deg);
+        opacity: 1;
+    }
+}
