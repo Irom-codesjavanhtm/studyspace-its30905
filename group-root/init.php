@@ -64,7 +64,8 @@ if (!$allowed) {
         $pdo->exec($sql);
         $rooms = (int) $pdo->query('SELECT COUNT(*) FROM studyspace.rooms')->fetchColumn();
         $bookings = (int) $pdo->query('SELECT COUNT(*) FROM studyspace.bookings')->fetchColumn();
-        say("Database 'studyspace' is ready: $rooms rooms and $bookings bookings loaded.");
+        $students = (int) $pdo->query("SELECT COUNT(*) FROM studyspace.users WHERE role = 'student'")->fetchColumn();
+        say("Database 'studyspace' is ready: $rooms rooms, $bookings bookings, $students dummy student account(s).");
         $ok = true;
     } catch (Throwable $e) {
         http_response_code(500);
