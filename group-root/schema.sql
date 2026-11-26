@@ -1,6 +1,6 @@
 -- StudySpace - Study Room Management System
 -- Import with:  mysql -u root -p < schema.sql
--- Rooms and quiet-hall desks are seeded. Bookings start empty.
+-- Rooms, quiet-hall desks, sample students, and sample bookings are seeded.
 
 CREATE DATABASE IF NOT EXISTS studyspace
     CHARACTER SET utf8mb4
@@ -126,3 +126,19 @@ CREATE TABLE users (
 -- Staff account. Password is Admin@2026. Registration cannot create another admin.
 INSERT INTO users (username, full_name, email, password_hash, role) VALUES
 ('admin', 'Library admin', 'admin@studyspace.local', '$2y$10$ta/eR2.r0zTsmkk3UTelEOzBR9H2wSyCDp29Gj7WFN67HBM8S8Y16', 'admin');
+
+-- Dummy student accounts (password for all: Student@2026). At least five rows for assignment demo data.
+INSERT INTO users (username, full_name, email, password_hash, role) VALUES
+('0390536', 'Bhone Myat San',              'bhone0390536@student.tp.edu.sg',    '$2y$12$t9GTrwZA8lgWNIsPQRcwVeD7pz0hUuKCl1CeVRYso7pqru5WaUTpi', 'student'),
+('0390575', 'Kaung Khant Naing',           'kaung0390575@student.tp.edu.sg',    '$2y$12$t9GTrwZA8lgWNIsPQRcwVeD7pz0hUuKCl1CeVRYso7pqru5WaUTpi', 'student'),
+('0391201', 'Alvin Wee Ze Quan',           'alvin0391201@student.tp.edu.sg',    '$2y$12$t9GTrwZA8lgWNIsPQRcwVeD7pz0hUuKCl1CeVRYso7pqru5WaUTpi', 'student'),
+('0391202', 'Muhammad Raifan Bin Mohd Razif', 'raifan0391202@student.tp.edu.sg', '$2y$12$t9GTrwZA8lgWNIsPQRcwVeD7pz0hUuKCl1CeVRYso7pqru5WaUTpi', 'student'),
+('0391203', 'Won Jee Hong',                'won0391203@student.tp.edu.sg',      '$2y$12$t9GTrwZA8lgWNIsPQRcwVeD7pz0hUuKCl1CeVRYso7pqru5WaUTpi', 'student');
+
+-- Sample bookings (room_id refers to seeded rooms: 1 = R-201, 2 = R-202, …).
+INSERT INTO bookings (room_id, student_name, student_id, email, booking_date, start_time, end_time, attendees, purpose, status) VALUES
+(1,  'Bhone Myat San',              '0390536', 'bhone0390536@student.tp.edu.sg', '2026-12-02', '09:00:00', '11:00:00', 3, 'Web programming group sprint',           'confirmed'),
+(2,  'Kaung Khant Naing',           '0390575', 'kaung0390575@student.tp.edu.sg', '2026-12-03', '13:30:00', '15:30:00', 4, 'UI review for StudySpace landing page', 'confirmed'),
+(5,  'Alvin Wee Ze Quan',           '0391201', 'alvin0391201@student.tp.edu.sg', '2026-12-04', '10:00:00', '12:00:00', 2, 'Database schema walkthrough',            'confirmed'),
+(11, 'Muhammad Raifan Bin Mohd Razif', '0391202', 'raifan0391202@student.tp.edu.sg', '2026-12-05', '14:00:00', '16:00:00', 4, 'Backend booking rules testing',     'confirmed'),
+(7,  'Won Jee Hong',                '0391203', 'won0391203@student.tp.edu.sg',   '2026-12-08', '08:30:00', '10:30:00', 2, 'Quiet revision before presentation',   'confirmed');
